@@ -1,0 +1,37 @@
+# Maintainer: David Webb <dwebb@brightmove.com>
+pkgname=dping
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="On-demand tool for finding where packet loss or latency spikes are happening between your machine and the internet"
+arch=('x86_64' 'aarch64')
+url="https://github.com/prowave/dping"
+license=('MIT')
+depends=('gcc-libs')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/prowave/dping/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('4a0a864a9d0e4ee056046dbbfed9abcfc95a668ca24144af06bcd4626d9fd8c7')
+
+prepare() {
+    cd "$pkgname-$pkgver"
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+    cd "$pkgname-$pkgver"
+    export RUSTUP_TOOLCHAIN=stable
+    export CARGO_TARGET_DIR=target
+    cargo build --frozen --release --all-features
+}
+
+check() {
+    cd "$pkgname-$pkgver"
+    export RUSTUP_TOOLCHAIN=stable
+    cargo test --frozen --all-features
+}
+
+package() {
+    cd "$pkgname-$pkgver"
+    install -Dm755 "target/release/$pkgname" "$pkgdir/usr/bin/$pkgname"
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+}

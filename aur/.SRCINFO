@@ -1,0 +1,14 @@
+pkgbase = dping
+	pkgdesc = On-demand tool for finding where packet loss or latency spikes are happening between your machine and the internet
+	pkgver = 0.1.0
+	pkgrel = 1
+	url = https://github.com/prowave/dping
+	arch = x86_64
+	arch = aarch64
+	license = MIT
+	makedepends = cargo
+	depends = gcc-libs
+	source = dping-0.1.0.tar.gz::https://github.com/prowave/dping/archive/refs/tags/v0.1.0.tar.gz
+	sha256sums = 4a0a864a9d0e4ee056046dbbfed9abcfc95a668ca24144af06bcd4626d9fd8c7
+
+pkgname = dping
