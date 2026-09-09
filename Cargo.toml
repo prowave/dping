@@ -2,6 +2,9 @@
 name = "dping"
 version = "0.1.0"
 edition = "2024"
+license = "MIT"
+description = "On-demand tool for finding where packet loss or latency spikes are happening between your machine and the internet"
+repository = "https://github.com/prowave/dping"
 
 [dependencies]
 anyhow = "1.0.104"
